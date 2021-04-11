@@ -5,6 +5,7 @@
   "main": "bot.js",
   "dependencies": {
     "@discordjs/collection": "^0.3.2",
+    "@top-gg/sdk": "^3.0.9",
     "discord.js": "^13.3.1"
   },
   "scripts": {
