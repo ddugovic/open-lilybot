@@ -22,7 +22,7 @@ client.login(token);
 // Confirm that the bot is ready to be used.
 client.once("ready", async () => {
     console.log("Ready.");
-    await client.user.setActivity(`"${config.prefix} help" for help`, { type: "PLAYING" });
+    await client.user.setActivity(`"${config.prefix} help" for help`, { type: "PLAYING", status: "idle" });
     console.log("Set activity.");
 });
 
