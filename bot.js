@@ -2,7 +2,7 @@
 const {Client, Intents} = require("discord.js");
 const Collection = require("@discordjs/collection");
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
-// To access files.
+// To access command files.
 const fs = require("fs");
 // Load the configuration.
 const config = require("./config.json");
@@ -13,11 +13,11 @@ for (const file of commandFiles) {
     const command = require(`./commands/${file}`);
     client.commands.set(command.name, command);
 }
+// To publish user and server counts.
+const publisher = require('discord-publisher');
 
 // Read the token and display it. The extra stuff after .toString() is to ensure that only the first line is used, the one which hopefully has the token.
-const token = fs.readFileSync("./token.txt").toString().split("\n")[0];
-
-client.login(token);
+client.login(config.token);
 
 // Confirm that the bot is ready to be used.
 client.once("ready", async () => {
@@ -88,16 +88,36 @@ client.on("messageCreate", message => {
     }
 });
 
-// Read the topggtoken and display it. The extra stuff after .toString() is to ensure that only the first line is used, the one which hopefully has the token.
-const topggtoken = fs.readFileSync("./topggtoken.txt").toString().split("\n")[0];
-const Topgg = require('@top-gg/sdk')
-const api = new Topgg.Api(topggtoken)
+function publish(config, client) {
+    console.log(`${client.users.cache.size} users, in ${client.guilds.cache.size} servers connected.`);
+    let settings = {
+	listings: {
+		// tokens for sites here
+		// leave blank or remove site if not posting to that site
+		topgg: config.topggtoken,
+		discordbotsgg: config.discordbotsggtoken,
+		discordboats: config.discordboatstoken,
+		botsondiscord: config.botsondiscordtoken,
+		botsfordiscord: config.botsfordiscordtoken,
+		botlistspace: config.botlistspacetoken,
+		topcord: config.topcordtoken,
+		discordextremelist: config.discordextremelisttoken,
+		discordbotlist: config.discordbotlisttoken,
+		sentcord: config.sentcordtoken,
+		dbotsco: config.dbotscotoken,
+		discordlabs: config.discordlabstoken,
+		blist: config.blisttoken
+	},
+	// the following is required
+	clientid: client.user.id,
+	servercount: client.guilds.cache.size,
+	shardscount: 1,
+	shardsid: 0,
+	usercount: client.users.cache.size,
+	output: config.debug
+    }
+    publisher.post(settings)
+}
 
-setInterval(() => {
-  api.postStats({
-    serverCount: client.guilds.cache.size,
-    shardId: client.shard.ids[0], // if you're sharding
-    shardCount: client.options.shardCount
-  })
-}, 1800000) // post every 30 minutes
+setInterval(publish, 1800000, config, client);
 

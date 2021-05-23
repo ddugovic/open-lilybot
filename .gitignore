@@ -1,7 +1,6 @@
 # === Project and generated files === #
+config.json
 score.ly
-token.txt
-topggtoken.txt
 generatedFiles/
 
 # === Node.js === #

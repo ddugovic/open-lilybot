@@ -15,7 +15,6 @@ These two should be able to be installed by simply typing `npm install`.
 There is no link to invite "the bot", instead the code that makes the bot work is presented here — think of it like how you can't drive a motor, but how you can put the motor in a car to drive the car, you can't use the code that's here, but you can create your bot with this code. This is due to it executing commands in the terminal which isn't supported by certain server hosting services, and because it requires Lilypond, which isn't provided in the NPM. Instead, you should do the following:
 
 * Create a new bot yourself by going to Discord's Developer Portal.
-* Copy the token and paste it to a file called `token.txt` in the same directory as the where the bot (`bot.js`) is located.
 * If not already done, install Lilypond, and run `npm install` in the same directory.
 * Optionally, change the prefix as defined in `config.json`.
 * Run `node bot` in your favourite terminal.
