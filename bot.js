@@ -14,7 +14,7 @@ for (const file of commandFiles) {
     client.commands.set(command.name, command);
 }
 // To publish user and server counts.
-const publisher = require('discord-publisher');
+const publisher = require('discord-lister');
 
 // Read the token and display it. The extra stuff after .toString() is to ensure that only the first line is used, the one which hopefully has the token.
 client.login(config.token);
