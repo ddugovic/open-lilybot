@@ -1,12 +1,9 @@
-// Load the configuration.
-const { prefix } = require("../config.json");
-
 module.exports = {
     name: "help",
     description: "Show commands and provide help.",
     aliases: ["commands"],
     args: false,
-    execute(message, args) {
+    execute(config, message, args) {
         if (args.length == 0) {
             message.channel.send(
 `__**List of commands**__

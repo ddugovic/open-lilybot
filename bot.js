@@ -69,7 +69,7 @@ client.on("messageCreate", message => {
         let reply = `Error, no arguments provided.`;
 
         if (command.usage) {
-            reply += `\n**Usage:** ${command.usage}`;
+            reply += `\n**Usage:** ${command.usage(config)}`;
         }
         if (command.options) {
             reply += `\n**Options:** ${command.options}`;
@@ -80,7 +80,7 @@ client.on("messageCreate", message => {
 
     // Otherwise, try to run the command.
     try {
-        command.execute(message, args);
+        command.execute(config, message, args);
     }
     catch (error) {
         console.error(error);

@@ -1,16 +1,16 @@
 // To run bash commands.
 const { exec } = require("child_process");
 const fs = require("fs");
-// Load the configuration.
-const config = require("../config.json");
 
 module.exports = {
     name: "compile",
     description: "Compile Lilypond score.",
     args: true,
-    usage: `\`${config.prefix} [compile] FILE [OPTION]...\` Note that you don't need to include "compile". For more info, type \`${config.prefix} help compile\`.`,
+    usage(config) {
+        return `\`${config.prefix} [compile] FILE [OPTION]...\` Note that you don't need to include "compile". For more info, type \`${config.prefix} help compile\`.`;
+    },
     options: `· \`png\`, \`preview\`: render a PNG and upload it.\n· \`verbose\`: run the command with the -dverbose flag. This can be useful if you have made a mistake and don't know what's wrong.`,
-    execute(message, args) {
+    execute(config, message, args) {
         // Remove "compile" if the user specified it so that it doesn't get passed into the Lilypond command.
         if (args[0].substring(0, 7) == "compile") {
             args[0] = args[0].substring(7);
